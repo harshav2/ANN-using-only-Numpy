@@ -1,6 +1,15 @@
+import os
 import numpy as np
 
-w=np.random.randn(20,20)
-b=np.random.randn(1,20)[0]
+# Define the directory
+output_dir = "/data"
 
-print(type(b[0]))
+# Load the numpy arrays
+input_weights = np.load(os.path.join(output_dir, "input_weights.npy"))
+hidden_weights = np.load(os.path.join(output_dir, "hidden_weights.npy"))
+output_weights = np.load(os.path.join(output_dir, "output_weights.npy"))
+
+# Print the arrays to verify
+print("Input Weights:\n", input_weights)
+print("\nHidden Weights:\n", hidden_weights)
+print("\nOutput Weights:\n", output_weights)

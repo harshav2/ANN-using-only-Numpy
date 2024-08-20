@@ -1,18 +1,12 @@
 import numpy as np
 
-def RELU(z):
-    #returns relu of the input value/array
-    #relu returns 0 for negative numbers, and the number itself otherwise
-    return np.maximum(0,z)
-
-import numpy as np
-
-def RELU(x):
-    return np.maximum(0, x)
+def sigmoid(x):
+    return 1/(1+(np.exp(-x)))
 
 def forward_prop(nn, x):
+    print(nn.hidden_bias)
     z1 = np.dot(nn.input_weights, x)
-    a1 = RELU(z1)
+    a1 = sigmoid(z1)
 
     current_a = a1
     intermediary_z = []
@@ -20,15 +14,17 @@ def forward_prop(nn, x):
 
     for i in range(len(nn.hidden_weights)):
         weights = nn.hidden_weights[i]
+        bias=nn.hidden_bias[i]
 
-        current_z = np.dot(weights, current_a)
+        current_z = np.dot(weights, current_a)+bias
         intermediary_z.append(current_z)
 
-        current_a = RELU(current_z)
+        current_a = sigmoid(current_z)
     
     for i, z in enumerate(intermediary_z):
         print(f"Layer {i+1} intermediary z:\n", z)
     
-    output = np.dot(nn.output_weights, current_a)
+    output = sigmoid(np.dot(nn.output_weights, current_a) + nn.output_bias)
+    print("Output:",output)
     
     return output, intermediary_z

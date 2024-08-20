@@ -9,24 +9,30 @@ class NeuralNetwork:
         self.input_weights=None
         self.hidden_weights=None
         self.output_weights=None
+        self.hidden_bias=None
+        self.output_bias=None
 
     def init_params(self,no_of_neurons,no_of_layers):
         #input layer parameters=1*neurons
         #intermediary layer paramaters=neurons*neurons (for "layers" number of layers)
         #output layer parameter=1*neurons
         self.input_weights=np.random.randn(no_of_neurons)
-        self.hidden_weights=np.random.randn(no_of_layers,no_of_neurons)
+        self.hidden_weights=np.random.randn(no_of_layers-1,no_of_neurons,no_of_neurons)
         self.output_weights=np.random.randn(no_of_neurons)
+        self.hidden_bias=np.random.randn(no_of_layers,no_of_neurons)
+        self.output_bias=np.random.randn(1)
         
     def load_params(self):
         #loading stored weights from npy files
         self.input_weights = np.load(os.path.join('/data', "input_weights.npy"))
         self.hidden_weights = np.load(os.path.join('/data', "hidden_weights.npy"))
         self.output_weights = np.load(os.path.join('/data', "output_weights.npy"))
+        self.hidden_bias= np.load(os.path.join('/data', "hidden_biases.npy"))
+        self.output_bias= np.load(os.path.join('/data', "output_bias.npy"))
+
 
 from forward_prop import forward_prop
 nn=NeuralNetwork()
 nn.load_params()
 
-o,_=forward_prop(nn,1)
-print("Output:\n",o)
+forward_prop(nn,1)

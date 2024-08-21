@@ -24,12 +24,9 @@ class ForwardProp:
 
             current_a = sigmoid(current_z)
         
-        for i, z in enumerate(self.intermediary_z):
-            print(f"Layer {i+1} intermediary z:\n", z)
-        
         output = sigmoid(np.dot(self.output_weights, current_a) + self.output_bias)
-        print("Output:",output)
 
         self.intermediary_z=np.array(self.intermediary_z)
+        print("Forward Propogation complete\n")
         
         return output

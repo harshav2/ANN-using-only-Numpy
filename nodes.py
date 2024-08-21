@@ -15,16 +15,16 @@ class NeuralNetwork(BackProp,ForwardProp):
         self.output_bias=None
         self.intermediary_z=None
 
-    def init_params(self,no_of_neurons,no_of_layers):
+    def init_params(self,no_of_neurons,no_of_layers,no_of_input, no_of_output):
         #input layer parameters=1*neurons
         #intermediary layer paramaters=neurons*neurons (for "layers" number of layers)
         #output layer parameter=1*neurons
-        self.input_weights=np.random.randn(no_of_neurons)
+        self.input_weights=np.random.randn(no_of_input,no_of_neurons)
         self.hidden_weights=np.random.randn(no_of_layers-1,no_of_neurons,no_of_neurons)
-        self.output_weights=np.random.randn(no_of_neurons)
-        self.input_bias=np.random.randn(1)
+        self.output_weights=np.random.randn(no_of_output,no_of_neurons)
+        self.input_bias=np.random.randn(no_of_input)
         self.hidden_bias=np.random.randn(no_of_layers,no_of_neurons)
-        self.output_bias=np.random.randn(1)
+        self.output_bias=np.random.randn(no_of_output)
         
     def load_params(self):
         #loading stored weights from npy files
@@ -40,9 +40,9 @@ nn=NeuralNetwork()
 try:
     nn.load_params()
 except FileNotFoundError:
-    nn.init_params(3, 3)
+    nn.init_params(3, 3, 3, 3)
 
-inp = np.array([1])
+inp = np.array([1,1,1])
 
 output = nn.forward_prop(inp)
-nn.back_prop(output, target=1 , inp=inp)
+nn.back_prop(output, target=[-2,-2,-2] , inp=inp)

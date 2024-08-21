@@ -22,6 +22,7 @@ class NeuralNetwork(BackProp,ForwardProp):
         self.input_weights=np.random.randn(no_of_neurons)
         self.hidden_weights=np.random.randn(no_of_layers-1,no_of_neurons,no_of_neurons)
         self.output_weights=np.random.randn(no_of_neurons)
+        self.input_bias=np.random.randn(1)
         self.hidden_bias=np.random.randn(no_of_layers,no_of_neurons)
         self.output_bias=np.random.randn(1)
         
@@ -30,11 +31,18 @@ class NeuralNetwork(BackProp,ForwardProp):
         self.input_weights = np.load(os.path.join('/data', "input_weights.npy"))
         self.hidden_weights = np.load(os.path.join('/data', "hidden_weights.npy"))
         self.output_weights = np.load(os.path.join('/data', "output_weights.npy"))
-        self.hidden_bias= np.load(os.path.join('/data', "hidden_biases.npy"))
+        self.input_bias= np.load(os.path.join('/data', "input_bias.npy"))
+        self.hidden_bias= np.load(os.path.join('/data', "hidden_bias.npy"))
         self.output_bias= np.load(os.path.join('/data', "output_bias.npy"))
 
 
 nn=NeuralNetwork()
-nn.load_params()
+try:
+    nn.load_params()
+except FileNotFoundError:
+    nn.init_params(3, 3)
 
-nn.forward_prop(1)
+inp = np.array([1])
+
+output = nn.forward_prop(inp)
+nn.back_prop(output, target=1 , inp=inp)

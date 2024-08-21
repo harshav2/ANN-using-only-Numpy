@@ -12,7 +12,8 @@ if not os.path.exists(output_dir):
 np.save(os.path.join(output_dir, "input_weights.npy"), np.random.randn(3))
 np.save(os.path.join(output_dir, "hidden_weights.npy"), np.random.randn(2,3,3))
 np.save(os.path.join(output_dir, "output_weights.npy"), np.random.randn(3))
-np.save(os.path.join(output_dir, "hidden_biases.npy"), np.random.randn(3,3))
+np.save(os.path.join(output_dir, "input_bias.npy"), np.random.randn(1))
+np.save(os.path.join(output_dir, "hidden_bias.npy"), np.random.randn(3,3))
 np.save(os.path.join(output_dir, "output_bias.npy"), np.random.randn(1))
 
 print("Files saved successfully.")

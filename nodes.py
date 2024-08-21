@@ -1,7 +1,9 @@
 import numpy as np
 import os
+from back_prop import BackProp
+from forward_prop import ForwardProp
 
-class NeuralNetwork:
+class NeuralNetwork(BackProp,ForwardProp):
     #network is to have 1 input variable x
     #network is to have 1 output variable z
 
@@ -11,6 +13,7 @@ class NeuralNetwork:
         self.output_weights=None
         self.hidden_bias=None
         self.output_bias=None
+        self.intermediary_z=None
 
     def init_params(self,no_of_neurons,no_of_layers):
         #input layer parameters=1*neurons
@@ -31,8 +34,7 @@ class NeuralNetwork:
         self.output_bias= np.load(os.path.join('/data', "output_bias.npy"))
 
 
-from forward_prop import forward_prop
 nn=NeuralNetwork()
 nn.load_params()
 
-forward_prop(nn,1)
+nn.forward_prop(1)

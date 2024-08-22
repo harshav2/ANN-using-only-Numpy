@@ -26,7 +26,5 @@ class ForwardProp:
         
         output = sigmoid(np.dot(self.output_weights, current_a) + self.output_bias)
 
-        self.intermediary_z=np.array(self.intermediary_z)
-        print("Forward Propogation complete\n")
-        
+        self.intermediary_z=np.array(self.intermediary_z)        
         return output

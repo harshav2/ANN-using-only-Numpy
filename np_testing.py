@@ -2,9 +2,9 @@ import numpy as np
 
 a=np.ones(4)*3
 b=np.ones(4)*8
-c=4
+c=[]
 
-print(a*(1-a)*(b*c))
-print(np.dot(a,b))
+c.append(a)
+c.append(b)
 
-print(a-2)
+print(np.sum(a))

@@ -46,7 +46,3 @@ class BackProp:
             self.input_weights -= learning_rate * np.dot(input_delta, inp.T)
             self.input_bias -= learning_rate * input_delta
         
-        print("Backward propogation complete\n")
-
-    def fit(self, X, y, threshold=1e-5):
-        pass

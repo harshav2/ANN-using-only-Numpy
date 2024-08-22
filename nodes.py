@@ -2,8 +2,9 @@ import numpy as np
 import os
 from back_prop import BackProp
 from forward_prop import ForwardProp
+from train_and_predict import GradientDescent
 
-class NeuralNetwork(BackProp,ForwardProp):
+class NeuralNetwork(GradientDescent):
     #network is to have 1 input variable x
     #network is to have 1 output variable z
 
@@ -35,6 +36,14 @@ class NeuralNetwork(BackProp,ForwardProp):
         self.hidden_bias= np.load(os.path.join('/data', "hidden_bias.npy"))
         self.output_bias= np.load(os.path.join('/data', "output_bias.npy"))
 
+    def save_params(self):
+        np.save(os.path.join('/data', "input_weights.npy"), self.input_weights)
+        np.save(os.path.join('/data', "hidden_weights.npy"), self.hidden_weights)
+        np.save(os.path.join('/data', "output_weights.npy"), self.output_weights)
+        np.save(os.path.join('/data', "input_bias.npy"), self.input_bias)
+        np.save(os.path.join('/data', "hidden_bias.npy"), self.hidden_bias)
+        np.save(os.path.join('/data', "output_bias.npy"), self.output_bias)
+
 
 nn=NeuralNetwork()
 try:
@@ -42,7 +51,7 @@ try:
 except FileNotFoundError:
     nn.init_params(3, 3, 3, 3)
 
-inp = np.array([1,1,1])
+X = np.random.randn(50,3)
+y = np.random.randn(50,3)
 
-output = nn.forward_prop(inp)
-nn.back_prop(output, target=[-2,-2,-2] , inp=inp)
+nn.fit(X, y)

@@ -2,9 +2,9 @@ import numpy as np
 import os
 from back_prop import BackProp
 from forward_prop import ForwardProp
-from train_and_predict import GradientDescent
+from train_and_predict import FitAndPredict
 
-class NeuralNetwork(GradientDescent):
+class NeuralNetwork(FitAndPredict):
     #network is to have 1 input variable x
     #network is to have 1 output variable z
 
@@ -53,5 +53,9 @@ except FileNotFoundError:
 
 X = np.random.randn(50,3)
 y = np.random.randn(50,3)
+test=np.random.randn(10,3)
 
 nn.fit(X, y)
+
+final=nn.predict(test)
+print(final)

@@ -3,7 +3,7 @@ from back_prop import BackProp
 import numpy as np
 
 class FitAndPredict(ForwardProp,BackProp):
-    def fit(self, X: np.ndarray, y: np.ndarray, max_epochs: int = 1000, threshold: float = 1e-3) -> None:
+    def fit(self, X: np.ndarray, y: np.ndarray, max_epochs: int = 10000, threshold: float = 1e-9):
         if len(X) != len(y) or len(X[0]) != len(self.input_bias):
             raise ValueError("Incorrect dimensions between X and y or no. of input neurons")
 
@@ -27,9 +27,12 @@ class FitAndPredict(ForwardProp,BackProp):
             
             total_loss /= (2 * len(X))  # Mean Squared Error
             total_loss = np.sum(total_loss)  # Ensure it's scalar
-            
+
+            print(f"Loss: {total_loss}")
+
+
             # Check for convergence
-            if abs(total_loss - old_loss) < threshold:
+            if np.abs(total_loss - old_loss) < threshold:
                 break
             old_loss = total_loss
             
@@ -39,8 +42,6 @@ class FitAndPredict(ForwardProp,BackProp):
             
             if np.isnan(total_loss):
                 raise ValueError("Loss is NaN")
-            
-            print(f"Loss: {total_loss}")
         
         self.save_params()
         print("Updated values saved\n")

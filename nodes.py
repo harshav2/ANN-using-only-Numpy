@@ -48,6 +48,7 @@ class NeuralNetwork(FitAndPredict):
 nn=NeuralNetwork()
 try:
     nn.load_params()
+    print(nn.output_bias)
 except FileNotFoundError:
     nn.init_params(3, 3, 3, 3)
 

@@ -41,8 +41,6 @@ class BackProp:
         input_delta = intermediary_aux[-1] * self.sigmoid_derivative(intermediary_a[0])
         if len(inp)==1:
             self.input_weights -= learning_rate * np.dot(input_delta, inp[0])
-            self.input_bias -= learning_rate * input_delta[0]
         else: 
             self.input_weights -= learning_rate * np.dot(input_delta, inp.T)
-            self.input_bias -= learning_rate * input_delta
         

@@ -6,19 +6,20 @@ def sigmoid(x):
 class ForwardProp:
     def forward_prop(self, inp):
         if len(inp)==1:
-            z1 = np.dot(self.input_weights, inp[0])+self.input_bias
+            z1 = np.dot(self.input_weights, inp[0])
         else:
-            z1 = np.dot(self.input_weights, inp)+self.input_bias
+            z1 = np.dot(inp, self.input_weights)
         a1 = sigmoid(z1)
 
         current_a = a1
+       
         self.intermediary_z = []
         self.intermediary_z.append(z1)
 
         for i in range(len(self.hidden_weights)):
             weights = self.hidden_weights[i]
             bias=self.hidden_bias[i]
-
+            
             current_z = np.dot(weights, current_a)+bias
             self.intermediary_z.append(current_z)
 

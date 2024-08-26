@@ -1,10 +1,9 @@
 import numpy as np
+from nodes import NeuralNetwork
 
-a=np.ones(4)*3
-b=np.ones(4)*8
-c=[]
+x=np.random.randn(10,784)
+y=np.random.randn(784)
 
-c.append(a)
-c.append(b)
-
-print(np.sum(a))
+forward=NeuralNetwork()
+forward.init_params(10,10,784,10)
+forward.forward_prop(x)

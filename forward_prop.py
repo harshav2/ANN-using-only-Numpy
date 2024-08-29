@@ -26,7 +26,6 @@ class ForwardProp:
                 output_z=np.sum(np.dot(self.output_weights.flatten(),current_a))+self.output_bias
             else:
                 output_z=np.sum(np.dot(self.output_weights.T,current_a))+self.output_bias
-            print(output_z)
             total_outputs.append(sigmoid(output_z))
             self.intermediary_z.append(int_z)
         self.intermediary_z=np.array(self.intermediary_z)

@@ -8,24 +8,43 @@ class ForwardProp:
         self.intermediary_z=[]
         total_outputs=[]
         for inp in inp_vector:
-            if len(inp)==1:
-                z_inp=np.dot(self.input_weights, inp[0])
-            else:
-                z_inp=(np.dot(inp,self.input_weights))
+            z_inp=[]
+            for i in range(len(self.input_weights)):
+                sum=0
+                for j in range(len(inp)):
+                    sum+=(self.input_weights[i][j]*inp[j])
+                z_inp.append(sum)
+            z_inp=np.array(z_inp)+self.hidden_bias[0]
 
             current_a=sigmoid(z_inp)
             int_z=[z_inp]
 
             for i in range(len(self.hidden_weights)):
-                current_z=np.sum(np.dot(current_a,self.hidden_weights[i]))+self.hidden_bias[i]   
+                weight=self.hidden_weights[i]
+                bias=self.hidden_bias[i+1]
 
-                int_z.append(current_z)
+                current_z=[]
+                for i in range(len(weight)):
+                    sum=0
+                    for j in range(len(weight)):
+                        sum+=(weight[i][j]*current_a[j])
+                    current_z.append(sum)
+                current_z=np.array(current_z)+bias
+
                 current_a=sigmoid(current_z)  
+                int_z.append(current_z)
 
-            if len(self.output_weights[0])==1:
-                output_z=np.sum(np.dot(self.output_weights.flatten(),current_a))+self.output_bias
-            else:
-                output_z=np.sum(np.dot(self.output_weights.T,current_a))+self.output_bias
+            print(self.output_weights,'\na\n',current_a,'\nb\n',self.output_bias,'\nc')
+
+            output_z=[]
+            for i in range(len(self.output_weights)):
+                sum=0
+                for j in range(len(current_a)):
+                    sum+=(self.output_weights[i][j]*current_a[j])
+                output_z.append(sum)
+            output_z=np.array(output_z)+self.output_bias[0]
+
+            print(output_z)
             total_outputs.append(sigmoid(output_z))
             self.intermediary_z.append(int_z)
         self.intermediary_z=np.array(self.intermediary_z)

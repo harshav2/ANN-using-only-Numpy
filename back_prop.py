@@ -7,19 +7,26 @@ class BackProp:
         return x * (1 - x)
     
     def back_prop(self, output, target, inp_vector, learning_rate=0.01):
+        intermediary_a = sigmoid(self.intermediary_z)
         for inp in inp_vector:
-            intermediary_a = sigmoid(self.intermediary_z)
             intermediary_aux = []
 
             #Calculating the auxilary variables
             final_error = output - target
-            final_delta = np.dot(final_error.T,self.sigmoid_derivative(output))
+            final_delta=[]
+            for i in range(len(final_error)):
+                final_delta.append(final_error[i]*self.sigmoid_derivative(output[i]))
+            final_delta=np.array(final_delta)
             
             if len(final_delta)==1:
                 current_aux = np.dot(self.output_weights.T, final_delta[0].T)
             else:
-                print(self.output_weights.shape,final_delta.shape)
+                # print(self.output_weights,final_delta.T)
+                # print(self.output_weights,'\n',final_delta)
                 current_aux = np.matmul(self.output_weights, final_delta.T)
+                # print(current_aux)
+
+                # print(current_aux)
             intermediary_aux.append(current_aux)
 
             for i in range(len(self.hidden_weights) - 1, 0, -1):

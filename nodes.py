@@ -15,9 +15,9 @@ class NeuralNetwork(FitAndPredict):
         self.intermediary_z=None
 
     def init_params(self,no_of_neurons,no_of_layers,no_of_input, no_of_output):
-        self.input_weights=np.random.randn(no_of_input,no_of_neurons)
-        self.hidden_weights=np.random.randn(no_of_layers,no_of_neurons,no_of_neurons)
-        self.output_weights=np.random.randn(no_of_neurons,no_of_output)
+        self.input_weights=np.random.randn(no_of_neurons,no_of_input)
+        self.hidden_weights=np.random.randn(no_of_layers-1,no_of_neurons,no_of_neurons)
+        self.output_weights=np.random.randn(no_of_output,no_of_neurons)
         self.hidden_bias=np.random.randn(no_of_layers,no_of_neurons)
         self.output_bias=np.random.randn(no_of_output)
         

@@ -45,4 +45,4 @@ class ForwardProp:
             total_outputs.append(sigmoid(output_z))
             self.intermediary_z.append(int_z)
         self.intermediary_z=np.array(self.intermediary_z)
-        return total_outputs
+        return np.array(total_outputs)

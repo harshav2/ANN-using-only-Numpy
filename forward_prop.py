@@ -34,8 +34,6 @@ class ForwardProp:
                 current_a=sigmoid(current_z)  
                 int_z.append(current_z)
 
-            print(self.output_weights,'\na\n',current_a,'\nb\n',self.output_bias,'\nc')
-
             output_z=[]
             for i in range(len(self.output_weights)):
                 sum=0
@@ -44,7 +42,6 @@ class ForwardProp:
                 output_z.append(sum)
             output_z=np.array(output_z)+self.output_bias[0]
 
-            print(output_z)
             total_outputs.append(sigmoid(output_z))
             self.intermediary_z.append(int_z)
         self.intermediary_z=np.array(self.intermediary_z)

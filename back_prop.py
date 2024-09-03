@@ -20,9 +20,11 @@ class BackProp:
                 current_aux = np.dot(self.output_weights.T, final_delta[0].T)
             else:
                 current_aux=[]
+                print(self.output_weights.T,'\na\n',final_delta,'\nb')
                 for i in range(len(self.output_weights.T)):
                     current_aux.append(np.dot(self.output_weights.T[i],final_delta))
                 current_aux=np.array(current_aux)
+                print(current_aux,'\nc')
 
             intermediary_aux.append(current_aux)
 

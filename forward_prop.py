@@ -6,7 +6,7 @@ def sigmoid(x):
 class ForwardProp:
     def forward_prop(self, inp):
         self.intermediary_z=[]
-        
+
         z_inp=[]
         for i in range(len(self.input_weights)):
             z_inp.append(np.dot(self.input_weights[i],inp))

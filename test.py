@@ -1,9 +1,7 @@
 import numpy as np
 
-x=np.random.randn(10,10)
-y=np.random.randn(10)
+x= -0.08517118*0.21181742
+y=0.10987583*0.56962127
+b=-1.21476882
 
-print((x+y).shape)
-
-from forward_prop import sigmoid
-print(sigmoid(x+y).shape)
+print(x+y+b)

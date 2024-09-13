@@ -6,35 +6,25 @@ class BackProp:
         x=np.array(x)
         return x * (1 - x)
     
-    def back_prop(self, output, target, learning_rate=0.01):
+    def back_prop(self, input_, output, target, learning_rate=0.01):
         intermediary_a = sigmoid(self.intermediary_z[0])
         intermediary_aux = []
 
         #Calculating the auxilary variables
         final_error = output - target
+        final_aux=np.multiply(self.sigmoid_derivative(output),final_error)
+    
+        current_aux=np.multiply(np.matmul(self.output_weights.T,final_aux),self.sigmoid_derivative(intermediary_a[-1]))
+        intermediary_aux=[current_aux]+intermediary_aux
 
-        final_delta=np.multiply(self.sigmoid_derivative(output),final_error)
-        print(final_delta,'\n',self.output_weights.T,'\n',intermediary_a[-1])
-        current_aux=[]
+        for i in range(len(self.hidden_weights)):
+            ind=-i-1
+            current_aux=np.multiply(np.matmul(self.hidden_weights[i].T,current_aux),self.sigmoid_derivative(intermediary_a[ind-1]))
+            intermediary_aux=[current_aux]+intermediary_aux
+
+        input_aux=np.multiply(np.matmul(self.input_weights.T,current_aux),self.sigmoid_derivative(sigmoid(input_)))
+
         
-        for i in range(len(self.output_weights.T)):
-            current_aux.append(np.matmul(self.sigmoid_derivative(intermediary_a[-1]),np.dot(self.output_weights.T[i],final_delta)))
-        print(current_aux)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

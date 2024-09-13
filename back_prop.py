@@ -23,16 +23,16 @@ class BackProp:
             intermediary_aux=[current_aux]+intermediary_aux
 
         input_aux=np.multiply(np.matmul(self.input_weights.T,current_aux),self.sigmoid_derivative(sigmoid(input_)))
-
         
+        self.output_weights -= learning_rate * np.dot(intermediary_aux[-1], intermediary_a[-1].T)
+        self.output_bias -= learning_rate * intermediary_aux[-1]
 
-
-
-
-
-
-
-
+        for i in range(len(self.hidden_weights)):
+            self.hidden_weights -= learning_rate * np.dot(intermediary_aux[-i-2], intermediary_a[-i-2])
+            self.hidden_bias -= learning_rate * intermediary_aux[-i-2]
+        
+        
+        self.input_weights -= learning_rate * np.dot(input_aux, )
 
 
         # current_aux=[]

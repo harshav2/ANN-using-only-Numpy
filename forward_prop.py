@@ -31,7 +31,7 @@ class ForwardProp:
         for i in range(len(self.output_weights)):
             output_z.append(np.dot(self.output_weights[i],current_a))
         output_z=np.array(output_z)+self.output_bias[0]
-        self.intermediary_z.append(int_z)
+        self.intermediary_z=np.array(int_z)
 
         self.intermediary_z=np.array(self.intermediary_z)
         return sigmoid(output_z)

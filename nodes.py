@@ -1,12 +1,14 @@
 import numpy as np
 import os
-from back_prop import BackProp
-from forward_prop import ForwardProp
 from train_and_predict import FitAndPredict
 
+def mse(y, y_pred):
+    error=y-y_pred
+    return np.mean(np.square(error))
 class NeuralNetwork(FitAndPredict):
 
-    def __init__(self):
+    def __init__(self, loss_func=mse):
+        self.loss_func=loss_func
         self.input_weights=None
         self.hidden_weights=None
         self.output_weights=None
@@ -15,9 +17,9 @@ class NeuralNetwork(FitAndPredict):
         self.intermediary_z=None
 
     def init_params(self,no_of_neurons,no_of_layers,no_of_input, no_of_output):
-        self.input_weights=np.random.randn(no_of_neurons,no_of_input)
+        self.input_weights=np.random.randn(no_of_input,no_of_neurons)
         self.hidden_weights=np.random.randn(no_of_layers-1,no_of_neurons,no_of_neurons)
-        self.output_weights=np.random.randn(no_of_output,no_of_neurons)
+        self.output_weights=np.random.randn(no_of_neurons,no_of_output)
         self.hidden_bias=np.random.randn(no_of_layers,no_of_neurons)
         self.output_bias=np.random.randn(no_of_output)
         
